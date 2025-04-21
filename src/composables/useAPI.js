@@ -7,6 +7,7 @@ const instance = axios.create({
  
  const employees = ref([])
  const loading = ref(false)
+ const currentEmployee = ref(null)
  
  export default function useAPI() {
  
@@ -19,6 +20,12 @@ const instance = axios.create({
  
          loading.value = false
      }
+
+     const fetchEmployee = async (id) => {
+         const response = await instance.get(`api/employees/fetch/${id}`)
+         currentEmployee.value = response.data
+     }
  
-     return {instance, employees, getEmployees, loading}
+     return {instance, employees, getEmployees, loading, fetchEmployee, currentEmployee}
+ 
  }
